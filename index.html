@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agregador de Notícias - CI/CD</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .version {
+      text-align: center;
+      color: #999;
+      font-size: 12px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      display: grid;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #333;
+      display: block;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-carregar {
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    .noticias-container {
+      display: grid;
+      gap: 15px;
+    }
+
+    .noticia {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .noticia h3 {
+      color: #333;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .noticia p {
+      color: #666;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .noticia-meta {
+      display: flex;
+      gap: 15px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    .categoria {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .loading {
+      text-align: center;
+      color: #667eea;
+      padding: 20px;
+    }
+
+    .error {
+      background: #fee;
+      color: #c33;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      border-left: 4px solid #c33;
+    }
+
+    .success {
+      background: #efe;
+      color: #3c3;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      border-left: 4px solid #3c3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📰 Agregador de Notícias</h1>
+    <p class="version">v1.0.0 - CI/CD com Vercel + Render</p>
+
+    <div id="mensagem"></div>
+
+    <div class="form-group">
+      <button class="btn-carregar" onclick="carregarNoticias()">
+        🔄 Carregar Notícias
+      </button>
+    </div>
+
+    <div style="margin-bottom: 40px; padding: 20px; background: #f0f4ff; border-radius: 8px; border-left: 4px solid #667eea;">
+      <h3 style="margin-bottom: 15px;">➕ Adicionar Nova Notícia</h3>
+      <div class="form-group">
+        <label>Título</label>
+        <input type="text" id="titulo" placeholder="Ex: Novo recurso lançado" />
+      </div>
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea id="descricao" placeholder="Ex: Detalhes sobre o novo recurso"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Categoria</label>
+        <input type="text" id="categoria" placeholder="Ex: Tecnologia" />
+      </div>
+      <button onclick="criarNoticia()" style="width: 100%;">Enviar Notícia</button>
+    </div>
+
+    <h2 style="margin-bottom: 20px; color: #333;">Notícias Carregadas:</h2>
+    <div id="noticias" class="noticias-container"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
